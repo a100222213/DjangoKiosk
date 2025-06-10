@@ -25,8 +25,8 @@ def V_CheckAuth(request):
 			MenuData=M_Menu.objects.filter(IsActive=True)
 			#request.session['Menu']=MenuData.values_list()
 			request.session['Menu']=serializers.serialize('json', MenuData, fields=('id','MenuName','MenuLink','MenuType','MenuParent','MenuIcon'))
-		except:
-			request.session['Menu']=null
+                except Exception:
+                        request.session['Menu'] = None
 
 		if user.is_superuser:
 			return HttpResponseRedirect('/admin/')
@@ -43,6 +43,6 @@ def V_ClearSession(request):
 		MenuData=M_Menu.objects.filter(IsActive=True)
 		#request.session['Menu']=MenuData.values_list()
 		request.session['Menu']=serializers.serialize('json', MenuData, fields=('id','MenuName','MenuLink','MenuType','MenuParent','MenuIcon'))
-	except:
-		request.session['Menu']=null
+        except Exception:
+                request.session['Menu'] = None
 	return redirect('/home/')
